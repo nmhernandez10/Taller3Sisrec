@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Kweh</title>
+
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+  <!-- Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+
+  <link href="./mystyle.css" rel="stylesheet" type="text/css">
+
+  <link rel="icon" href="./assets/colibri.png">
+
+</head>
+
+<body>
+
+  <main>
+    <div id="app">
+
+    </div>
+  </main>
+
+  <script src="bundle.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+  <script>
+    document.addEventListener('component', function () {
+      var elems = document.querySelectorAll('.slider');
+      var instances = M.Slider.init(elems, { indicators: false, interval: 10000, height: window.innerHeight * 0.2 });
+    });
+
+    document.addEventListener('componentbigger', function () {
+      var elems = document.querySelectorAll('.slider');
+      var instances = M.Slider.init(elems, { indicators: false, interval: 10000, height: window.innerHeight * 0.4 });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var elems = document.querySelectorAll('.slider');
+      var instances = M.Slider.init(elems, { indicators: false, interval: 10000, height: window.innerHeight * 0.4 });
+    });
+  </script>
+
+  <script>
+    document.addEventListener('component', function () {
+      var elems = document.querySelectorAll('.modal');
+      var instances = M.Modal.init(elems, {});
+    });
+
+    document.addEventListener('componentbigger', function () {
+      var elems = document.querySelectorAll('.modal');
+      var instances = M.Modal.init(elems, {});
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var elems = document.querySelectorAll('.modal');
+      var instances = M.Modal.init(elems, {});
+    });
+  </script>
+
+</body>
+
+</html>

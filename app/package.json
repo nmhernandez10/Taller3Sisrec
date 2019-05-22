@@ -1,0 +1,42 @@
+{
+  "name": "webpage",
+  "version": "1.0.0",
+  "description": "Taller2sisrecWebpage",
+  "main": "index.js",
+  "dependencies": {
+    "ajv": "^6.8.1",
+    "busboy": "^0.3.0",
+    "copy-to-clipboard": "^3.0.8",
+    "dateformat": "^3.0.3",
+    "express": "^4.16.4",
+    "morgan": "^1.9.1",
+    "pg": "^7.9.0",
+    "pg-hstore": "^2.3.2",
+    "react-drag-and-drop": "^3.0.0",
+    "react-paginate": "^6.3.0",
+    "react-router-dom": "^4.3.1",
+    "react-star-ratings": "^2.3.0",
+    "sequelize": "^4.42.0",
+    "sequelize-auto-migrations": "^1.0.3",
+    "sequelize-cli": "^5.4.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "nodemon": "^1.18.9",
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "webpack": "webpack --mode development --watch"
+  },
+  "author": "team08sisrec",
+  "license": "ISC"
+}
