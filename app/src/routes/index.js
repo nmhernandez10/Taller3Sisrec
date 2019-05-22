@@ -1,11 +1,10 @@
 var express = require('express');
 var router = express.Router();
 const userController = require('../controllers/user');
-const businessController = require('../controllers/business');
-const photoController = require('../controllers/photo');
+const movieController = require('../controllers/movie');
 const reviewController = require('../controllers/review');
 const tagController = require('../controllers/tag');
-const businesstagController = require('../controllers/businesstag');
+const movietagController = require('../controllers/movietag');
 const usertagController = require('../controllers/usertag');
 
 // Static files on index.js of app will render front
@@ -24,26 +23,20 @@ router.get('/api/user/formodel/forsvd/:id', userController.getForSVD);
 router.get('/api/user/formodel/count/', userController.getNumUsers);
 router.get('/api/user/forprofile/:id', userController.getForProfile);
 
-// Business
-router.get('/api/business/', businessController.getAll);
-router.get('/api/business/:id', businessController.get);
-router.post('/api/business/', businessController.post);
-router.put('/api/business/:id', businessController.put);
-router.delete('/api/business/:id', businessController.delete);
-router.get('/api/business/byname/:name', businessController.getByName);
-router.get('/api/business/byyelpid/:yelp_id', businessController.getByYelpId);
-router.get('/api/user/:id/top', businessController.getTop);
-//We put 'put' because we needed to send a body request for searching businesses by attributes
-router.put('/api/business/byattributes/name', businessController.getByNameAndExactlyByAttributes);
-router.put('/api/business/byattributes/and', businessController.getExactlyByAttributes);
-router.put('/api/business/byattributes/or', businessController.getByAttributes);
+// Movie
+router.get('/api/movie/', movieController.getAll);
+router.get('/api/movie/:id', movieController.get);
+router.post('/api/movie/', movieController.post);
+router.put('/api/movie/:id', movieController.put);
+router.delete('/api/movie/:id', movieController.delete);
+router.get('/api/movie/byname/:name', movieController.getByName);
+router.get('/api/movie/byyelpid/:yelp_id', movieController.getByYelpId);
+router.get('/api/user/:id/top', movieController.getTop);
+//We put 'put' because we needed to send a body request for searching movies by attributes
+router.put('/api/movie/byattributes/name', movieController.getByNameAndExactlyByAttributes);
+router.put('/api/movie/byattributes/and', movieController.getExactlyByAttributes);
+router.put('/api/movie/byattributes/or', movieController.getByAttributes);
 
-// Photo
-router.get('/api/business/:business_id/photo/', photoController.getAll);
-router.get('/api/business/:business_id/photo/:id', photoController.get);
-router.post('/api/business/:business_id/photo/', photoController.post);
-router.put('/api/business/:business_id/photo/:id', photoController.put);
-router.delete('/api/business/:business_id/photo/:id', photoController.delete);
 
 // Review
 router.get('/api/review/', reviewController.getAll);
@@ -63,12 +56,12 @@ router.delete('/api/tag/:id', tagController.delete);
 router.get('/api/tag/byname/:name', tagController.getByName);
 router.get('/api/tagnames/',tagController.getNames);
 
-// BusinessTag
-router.get('/api/businesstag/', businesstagController.getAll);
-router.get('/api/businesstag/:id', businesstagController.get);
-router.post('/api/businesstag/', businesstagController.post);
-router.put('/api/businesstag/:id', businesstagController.put);
-router.delete('/api/businesstag/:id', businesstagController.delete);
+// MovieTag
+router.get('/api/movietag/', movietagController.getAll);
+router.get('/api/movietag/:id', movietagController.get);
+router.post('/api/movietag/', movietagController.post);
+router.put('/api/movietag/:id', movietagController.put);
+router.delete('/api/movietag/:id', movietagController.delete);
 
 // UserTag
 router.get('/api/usertag/', usertagController.getAll);

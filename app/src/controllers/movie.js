@@ -174,11 +174,8 @@ module.exports = {
     post(req, res) {
         return Movie.create({
             name: req.body.name,
-            yelp_id: req.body.yelp_id,
-            address: req.body.address,
-            city: req.body.city,
-            latitude: req.body.latitude,
-            longitude: req.body.longitude
+            photo: req.body.photo,
+            year: req.body.year
         }).then((movie) => res.status(201).send(movie))
             .catch((error) => res.status(400).send(error));
     },
