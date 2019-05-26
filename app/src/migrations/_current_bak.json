@@ -22,14 +22,6 @@
                     "field": "photo",
                     "seqType": "Sequelize.STRING"
                 },
-                "director": {
-                    "field": "director",
-                    "seqType": "Sequelize.STRING"
-                },
-                "actores": {
-                    "field": "actores",
-                    "seqType": "Sequelize.STRING"
-                },
                 "createdAt": {
                     "allowNull": false,
                     "field": "createdAt",
@@ -270,5 +262,5 @@
             "indexes": []
         }
     },
-    "revision": 2
+    "revision": 1
 }
