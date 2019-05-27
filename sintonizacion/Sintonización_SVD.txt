@@ -1,0 +1,295 @@
+Resultados Experimentación Modelo SVD.
+Modificacion de los parámetros:n_factors, n_epochs, lr_all, reg_all
+
+Experimentación 1:
+"Modelo SVD"
+algo = SVD( n_factors = 5, n_epochs = 5, biased = True, lr_all = 0.1, reg_all = 0.1, init_mean = 0, init_std_dev = 0.01, verbose = True )
+
+RMSE: 0.7494
+RMSE: 0.7618
+RMSE: 0.9768
+MAE:  0.5652
+MAE:  0.5742
+MAE:  0.7386
+
+Experimentación 2:
+"Modelo SVD"
+algo = SVD( n_factors = 10, n_epochs = 5, biased = True, lr_all = 0.1, reg_all = 0.1, init_mean = 0, init_std_dev = 0.01, verbose = True )
+
+RMSE: 0.7480
+RMSE: 0.7605
+RMSE: 0.9768
+MAE:  0.5644
+MAE:  0.5733
+MAE:  0.7386
+
+Experimentación 3:
+"Modelo SVD"
+algo = SVD( n_factors = 15, n_epochs = 5, biased = True, lr_all = 0.1, reg_all = 0.1, init_mean = 0, init_std_dev = 0.01, verbose = True )
+
+RMSE: 0.7465
+RMSE: 0.7590
+RMSE: 0.9768
+MAE:  0.5634
+MAE:  0.5724
+MAE:  0.7386
+
+Experimentación 4:
+"Modelo SVD"
+algo = SVD( n_factors = 15, n_epochs = 3, biased = True, lr_all = 0.1, reg_all = 0.1, init_mean = 0, init_std_dev = 0.01, verbose = True )
+
+RMSE: 0.7718
+RMSE: 0.7839
+RMSE: 0.9763
+MAE:  0.5842
+MAE:  0.5928
+MAE:  0.7374
+
+Experimentación 5:
+"Modelo SVD"
+algo = SVD( n_factors = 15, n_epochs = 6, biased = True, lr_all = 0.1, reg_all = 0.1, init_mean = 0, init_std_dev = 0.01, verbose = True )
+
+RMSE: 0.7342
+RMSE: 0.7469
+RMSE: 0.9773
+MAE:  0.5536
+MAE:  0.5629
+MAE:  0.7393
+
+Experimentación 6:
+"Modelo SVD"
+algo = SVD( n_factors = 15, n_epochs = 7, biased = True, lr_all = 0.1, reg_all = 0.1, init_mean = 0, init_std_dev = 0.01, verbose = True )
+
+RMSE: 0.7149
+RMSE: 0.7278
+RMSE: 0.9776
+MAE:  0.5392
+MAE:  0.5486
+MAE:  0.7398
+
+Experimentación 7:
+"Modelo SVD"
+algo = SVD( n_factors = 15, n_epochs = 8, biased = True, lr_all = 0.1, reg_all = 0.1, init_mean = 0, init_std_dev = 0.01, verbose = True )
+
+RMSE: 0.6864
+RMSE: 0.6997
+RMSE: 0.9779
+MAE:  0.5182
+MAE:  0.5280
+MAE:  0.7403
+
+Experimentación 8:
+"Modelo SVD"
+algo = SVD( n_factors = 15, n_epochs = 9, biased = True, lr_all = 0.1, reg_all = 0.1, init_mean = 0, init_std_dev = 0.01, verbose = True )
+
+RMSE: 0.6432
+RMSE: 0.6567
+RMSE: 0.9780
+MAE:  0.4862
+MAE:  0.4964
+MAE:  0.7407
+
+Experimentación 9:
+"Modelo SVD"
+algo = SVD( n_factors = 15, n_epochs = 10, biased = True, lr_all = 0.1, reg_all = 0.1, init_mean = 0, init_std_dev = 0.01, verbose = True )
+
+RMSE: 0.5962
+RMSE: 0.6103
+RMSE: 0.9777
+MAE:  0.4510
+MAE:  0.4615
+MAE:  0.7406
+
+Experimentación 10:
+"Modelo SVD"
+algo = SVD( n_factors = 15, n_epochs = 15, biased = True, lr_all = 0.1, reg_all = 0.1, init_mean = 0, init_std_dev = 0.01, verbose = True )
+
+RMSE: 0.4159
+RMSE: 0.4293
+RMSE: 0.9786
+MAE:  0.3108
+MAE:  0.3217
+MAE:  0.7429
+
+Experimentación 11:
+"Modelo SVD"
+algo = SVD( n_factors = 15, n_epochs = 20, biased = True, lr_all = 0.1, reg_all = 0.1, init_mean = 0, init_std_dev = 0.01, verbose = True )
+
+RMSE: 0.3577
+RMSE: 0.3704
+RMSE: 0.9795
+MAE:  0.2613
+MAE:  0.2713
+MAE:  0.7445
+
+Experimentación 12:
+"Modelo SVD"
+algo = SVD( n_factors = 15, n_epochs = 25, biased = True, lr_all = 0.1, reg_all = 0.1, init_mean = 0, init_std_dev = 0.01, verbose = True )
+
+RMSE: 0.3385
+RMSE: 0.3506
+RMSE: 0.9799
+MAE:  0.2433
+MAE:  0.2527
+MAE:  0.7462
+
+Experimentación 13:
+"Modelo SVD"
+algo = SVD( n_factors = 15, n_epochs = 30, biased = True, lr_all = 0.1, reg_all = 0.1, init_mean = 0, init_std_dev = 0.01, verbose = True )
+
+RMSE: 0.3296
+RMSE: 0.3412
+RMSE: 0.9789
+MAE:  0.2345
+MAE:  0.2434
+MAE:  0.7461
+
+Experimentación 14:
+"Modelo SVD"
+algo = SVD( n_factors = 15, n_epochs = 35, biased = True, lr_all = 0.1, reg_all = 0.1, init_mean = 0, init_std_dev = 0.01, verbose = True )
+
+RMSE: 0.3244
+RMSE: 0.3361
+RMSE: 0.9805
+MAE:  0.2300
+MAE:  0.2392
+MAE:  0.7474
+
+Experimentación 15:
+"Modelo SVD"
+algo = SVD( n_factors = 15, n_epochs = 40, biased = True, lr_all = 0.1, reg_all = 0.1, init_mean = 0, init_std_dev = 0.01, verbose = True )
+RMSE: 0.3216
+RMSE: 0.3335
+RMSE: 0.9796
+MAE:  0.2272
+MAE:  0.2361
+MAE:  0.7472
+
+Experimentación 16:
+"Modelo SVD"
+algo = SVD( n_factors = 15, n_epochs = 40, biased = True, lr_all = 0.05, reg_all = 0.1, init_mean = 0, init_std_dev = 0.01, verbose = True )
+
+RMSE: 0.3467
+RMSE: 0.3525
+RMSE: 0.9762
+MAE:  0.2549
+MAE:  0.2591
+MAE:  0.7418
+
+Experimentación 17:
+"Modelo SVD"
+algo = SVD( n_factors = 15, n_epochs = 40, biased = True, lr_all = 0.15, reg_all = 0.1, init_mean = 0, init_std_dev = 0.01, verbose = True )
+
+RMSE: 0.3375
+RMSE: 0.3536
+RMSE: 0.9816
+MAE:  0.2363
+MAE:  0.2493
+MAE:  0.7506
+
+Experimentación 18:
+"Modelo SVD"
+algo = SVD( n_factors = 15, n_epochs = 40, biased = True, lr_all = 0.2, reg_all = 0.1, init_mean = 0, init_std_dev = 0.01, verbose = True )
+
+RMSE: 0.3671
+RMSE: 0.3871
+RMSE: 0.9854
+MAE:  0.2552
+MAE:  0.2719
+MAE:  0.7533
+
+Experimentación 19:
+"Modelo SVD"
+algo = SVD( n_factors = 15, n_epochs = 40, biased = True, lr_all = 0.1, reg_all = 0.05, init_mean = 0, init_std_dev = 0.01, verbose = True )
+
+RMSE: 0.2079
+RMSE: 0.2173
+RMSE: 0.9837
+MAE:  0.1411
+MAE:  0.1480
+MAE:  0.7496
+
+Experimentación 20:
+"Modelo SVD"
+algo = SVD( n_factors = 15, n_epochs = 40, biased = True, lr_all = 0.1, reg_all = 0.01, init_mean = 0, init_std_dev = 0.01, verbose = True )
+
+RMSE: 0.0923
+RMSE: 0.0974
+RMSE: 0.9933
+MAE:  0.0561
+MAE:  0.0597
+MAE:  0.7532
+
+Experimentación 21:
+"Modelo SVD"
+algo = SVD( n_factors = 15, n_epochs = 40, biased = True, lr_all = 0.1, reg_all = 0.005, init_mean = 0, init_std_dev = 0.01, verbose = True )
+
+RMSE: 0.0722
+RMSE: 0.0763
+RMSE: 1.0000
+MAE:  0.0418
+MAE:  0.0446
+MAE:  0.7566
+
+Experimentación 22:
+"Modelo SVD"
+algo = SVD( n_factors = 15, n_epochs = 40, biased = True, lr_all = 0.1, reg_all = 0.001, init_mean = 0, init_std_dev = 0.01, verbose = True )
+
+RMSE: 0.0608
+RMSE: 0.0647
+RMSE: 1.0070
+MAE:  0.0330
+MAE:  0.0354
+MAE:  0.7616
+
+Experimentación 23:
+"Modelo SVD"
+algo = SVD( n_factors = 15, n_epochs = 40, biased = True, lr_all = 0.1, reg_all = 0.001, init_mean = 0, init_std_dev = 0.01, verbose = True )
+
+RMSE: 0.0867
+RMSE: 0.0967
+RMSE: 0.7025
+MAE:  0.0477
+MAE:  0.0546
+MAE:  0.3647
+
+Experimentación 24:
+"Modelo SVD"
+algo = SVD( n_factors = 15, n_epochs = 45, biased = True, lr_all = 0.1, reg_all = 0.001, init_mean = 0, init_std_dev = 0.01, verbose = True )
+
+RMSE: 0.0811
+RMSE: 0.0893
+RMSE: 0.6980
+MAE:  0.0439
+MAE:  0.0495
+MAE:  0.3597
+
+Experimentación 25:  -- Modelo final
+"Modelo SVD"
+algo = SVD( n_factors = 15, n_epochs = 45, biased = True, lr_all = 0.1, reg_all = 0.01, init_mean = 0, init_std_dev = 0.01, verbose = True )
+
+RMSE: 0.1079
+RMSE: 0.1200
+RMSE: 0.6686
+MAE:  0.0654
+MAE:  0.0740
+MAE:  0.3565
+
+Experimentación 26:
+"Modelo SVD"
+algo = SVD( n_factors = 15, n_epochs = 45, biased = True, lr_all = 0.1, reg_all = 0.05, init_mean = 0, init_std_dev = 0.01, verbose = True )
+
+RMSE: 0.2249
+RMSE: 0.2411
+RMSE: 0.6344
+MAE:  0.1531
+MAE:  0.1665
+MAE:  0.3842
+
+
+
+
+
+
+
+
