@@ -31,7 +31,7 @@ class TagExtractor:
 
     def define_tags(self):
         movies = {}
-        with open(self.movies_tags_file, 'w', encoding='utf-8') as movie_attributes:
+        with open(self.movies_tags_file, 'w', encoding='utf-8') as movie_tags:
             movie_tags.write('')
 
         movies_genres = {}

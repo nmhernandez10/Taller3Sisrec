@@ -43,7 +43,10 @@ class DatabasePopulator:
             header = 0
             for line in genome_tags:
                 if header:
+                    # if index == 2:
+                    #     break
                     tag = line.split(',')[1]
+
                     r = requests.post(self.database_address.format(
                         'tag'), json={'name': tag})
 
@@ -58,7 +61,16 @@ class DatabasePopulator:
                             index / len(genome_tags) * 100))
                 header = 1
 
-        with open(self.tag_ids_file, 'w', encoding = 'utf-8') as tag_ids:
+        for tag in self.genre_ids:
+            r = requests.post(self.database_address.format(
+                'tag'), json={'name': tag})
+
+            if r.status_code >= 300:
+                print("Error in {}".format(index))
+            else:
+                all_tags[tag] = r.json()['id']
+
+        with open(self.tag_ids_file, 'w', encoding='utf-8') as tag_ids:
             tag_ids.write(json.dumps(all_tags))
 
     def load_movies(self):
@@ -73,4 +85,4 @@ class DatabasePopulator:
 
 if __name__ == '__main__':
     databasePopulator = DatabasePopulator()
-    databasePopulator.load_tags()
+    # databasePopulator.load_tags()
