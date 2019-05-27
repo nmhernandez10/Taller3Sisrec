@@ -26,8 +26,8 @@
                     "field": "director",
                     "seqType": "Sequelize.STRING"
                 },
-                "actores": {
-                    "field": "actores",
+                "actors": {
+                    "field": "actors",
                     "seqType": "Sequelize.STRING"
                 },
                 "createdAt": {
@@ -270,5 +270,5 @@
             "indexes": []
         }
     },
-    "revision": 2
+    "revision": 1
 }

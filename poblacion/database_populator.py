@@ -38,7 +38,7 @@ class DatabasePopulator:
     def load_tags(self):
         all_tags = {}
         with open(self.genome_tags_file, 'r', encoding='utf-8') as genome_tags:
-            index = 0
+            index = 300
             genome_tags = genome_tags.readlines()
             header = 0
             for line in genome_tags:
@@ -46,7 +46,7 @@ class DatabasePopulator:
                     # if index == 2:
                     #     break
                     tag = line.split(',')[1]
-
+                    tag = tag[:-1]
                     r = requests.post(self.database_address.format(
                         'tag'), json={'name': tag})
 
@@ -85,4 +85,4 @@ class DatabasePopulator:
 
 if __name__ == '__main__':
     databasePopulator = DatabasePopulator()
-    # databasePopulator.load_tags()
+    databasePopulator.load_tags()

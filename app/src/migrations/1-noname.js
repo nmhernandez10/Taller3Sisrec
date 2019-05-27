@@ -17,7 +17,7 @@ var Sequelize = require('sequelize');
 var info = {
     "revision": 1,
     "name": "noname",
-    "created": "2019-05-22T01:46:40.739Z",
+    "created": "2019-05-27T19:26:16.843Z",
     "comment": ""
 };
 
@@ -44,6 +44,14 @@ var migrationCommands = [{
                 "photo": {
                     "type": Sequelize.STRING,
                     "field": "photo"
+                },
+                "director": {
+                    "type": Sequelize.STRING,
+                    "field": "director"
+                },
+                "actors": {
+                    "type": Sequelize.STRING,
+                    "field": "actors"
                 },
                 "createdAt": {
                     "type": Sequelize.DATE,

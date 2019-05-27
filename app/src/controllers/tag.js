@@ -38,7 +38,10 @@ module.exports = {
         return Tag.create({
             name: req.body.name
         }).then((tag) => res.status(201).send(tag))
-            .catch((error) => res.status(400).send(error));
+            .catch((error) => {
+                console.log(error);
+                return res.status(400).send(error)
+            });
     },
     put(req, res) {
         return Tag.findById(req.params.id)
