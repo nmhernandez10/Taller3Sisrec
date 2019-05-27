@@ -177,7 +177,7 @@ module.exports = {
             photo: req.body.photo,
             year: req.body.year,
             director: req.body.director,
-            actores: req.body.actors
+            actors: req.body.actors
         }).then((movie) => res.status(201).send(movie))
             .catch((error) => res.status(400).send(error));
     },
@@ -194,7 +194,7 @@ module.exports = {
                     photo: req.body.photo || movie.photo,
                     year: req.body.year || movie.year,
                     director: req.body.director || movie.director,
-                    actores: req.body.actores || movie.actores
+                    actors: req.body.actors || movie.actors
                 })
                     .then((movie) => res.status(200).send(movie))
                     .catch((error) => res.status(400).send(error));

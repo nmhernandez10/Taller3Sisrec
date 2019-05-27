@@ -10,8 +10,8 @@ class DatabasePopulator:
     movies_file = '../../ml-latest/movies.csv'
     ratings_file = '../../ml-latest/ratings.csv'
     tag_ids_file = '../../ml-latest/tags_ids_file.json'
-    # database_address = 'http://127.0.0.1:8080/api/{}'
-    database_address = 'http://172.24.101.30:5432/api/{}'
+    database_address = 'http://127.0.0.1:8080/api/{}'
+    # database_address = 'http://172.24.101.30:8085/api/{}'
 
     genre_ids = {'Action': 1129,
                  'Adventure': 1130,
@@ -38,21 +38,25 @@ class DatabasePopulator:
     def load_tags(self):
         all_tags = {}
         with open(self.genome_tags_file, 'r', encoding='utf-8') as genome_tags:
+            index = 0
             genome_tags = genome_tags.readlines()
+            header = 0
             for line in genome_tags:
-                tag = line.split(',')[1]
-                r = requests.post(self.database_address.format(
-                    'tag'), json={'name': tag})
+                if header:
+                    tag = line.split(',')[1]
+                    r = requests.post(self.database_address.format(
+                        'tag'), json={'name': tag})
 
-                if r.status_code >= 300:
-                    print("Error in {}".format(objectIndex))
-                else:
-                    all_tags[tag] = r.json()['id']
+                    if r.status_code >= 300:
+                        print("Error in {}".format(index))
+                    else:
+                        all_tags[tag] = r.json()['id']
 
-                objectIndex += 1
-                if objectIndex % 100 == 0:
-                    print('Total progress adding tags: {}%'.format(
-                        objectIndex / 1400 * 100))
+                    index += 1
+                    if index % 100 == 0:
+                        print('Total progress adding tags: {}%'.format(
+                            index / len(genome_tags) * 100))
+                header = 1
 
         with open(self.tag_ids_file, 'w', encoding = 'utf-8') as tag_ids:
             tag_ids.write(json.dumps(all_tags))

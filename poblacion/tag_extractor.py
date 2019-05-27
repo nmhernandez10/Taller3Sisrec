@@ -4,7 +4,7 @@ import json
 class TagExtractor:
     genome_scores_file = '../../ml-latest/genome-scores.csv'
     genome_tags_file = '../../ml-latest/genome-tags.csv'
-    movies_attributes_file = '../../ml-latest/movies_attributes.json'
+    movies_tags_file = '../../ml-latest/movies_attributes.json'
     movies_file = '../../ml-latest/movies.csv'
 
     genre_ids = {'Action': 1129,
@@ -31,8 +31,8 @@ class TagExtractor:
 
     def define_tags(self):
         movies = {}
-        with open(self.movies_attributes_file, 'w', encoding='utf-8') as movie_attributes:
-            movie_attributes.write('')
+        with open(self.movies_tags_file, 'w', encoding='utf-8') as movie_attributes:
+            movie_tags.write('')
 
         movies_genres = {}
         with open(self.movies_file, 'r', encoding='utf-8') as movies:
@@ -80,9 +80,9 @@ class TagExtractor:
                         number_of_movies += 1
                         for genre in movies_genres[last_movie_id]:
                             movies[last_movie_id].append(genre)
-                        with open(self.movies_attributes_file, 'a', encoding='utf-8') as movie_attributes:
-                            movie_attributes.write(json.dumps(movies))
-                            movie_attributes.write('\n')
+                        with open(self.movies_tags_file, 'a', encoding='utf-8') as movie_attributes:
+                            movie_tags.write(json.dumps(movies))
+                            movie_tags.write('\n')
                     last_movie_id = movie_id
                     movies = {}
                 try:

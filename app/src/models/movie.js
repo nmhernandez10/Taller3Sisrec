@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     year: DataTypes.STRING,
     photo: DataTypes.STRING,
     director: DataTypes.STRING,
-    actores: DataTypes.STRING
+    actors: DataTypes.STRING
   }, {});
   Movie.associate = function (models) {    
     models.Movie.hasMany(models.Review);
