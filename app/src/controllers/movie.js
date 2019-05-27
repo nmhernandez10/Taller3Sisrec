@@ -175,7 +175,9 @@ module.exports = {
         return Movie.create({
             name: req.body.name,
             photo: req.body.photo,
-            year: req.body.year
+            year: req.body.year,
+            director: req.body.director,
+            actores: req.body.actors
         }).then((movie) => res.status(201).send(movie))
             .catch((error) => res.status(400).send(error));
     },
@@ -189,11 +191,10 @@ module.exports = {
                 }
                 return movie.update({
                     name: req.body.name || movie.name,
-                    yelp_id: req.body.yelp_id || movie.yelp_id,
-                    address: req.body.address || movie.address,
-                    city: req.body.city || movie.city,
-                    latitude: req.body.latitude || movie.latitude,
-                    longitude: req.body.longitude || movie.longitude
+                    photo: req.body.photo || movie.photo,
+                    year: req.body.year || movie.year,
+                    director: req.body.director || movie.director,
+                    actores: req.body.actores || movie.actores
                 })
                     .then((movie) => res.status(200).send(movie))
                     .catch((error) => res.status(400).send(error));

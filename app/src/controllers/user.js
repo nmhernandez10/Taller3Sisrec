@@ -77,12 +77,11 @@ module.exports = {
     post(req, res) {
         return User.create({
             names: req.body.names,
-            yelp_id: req.body.yelp_id,
             email: req.body.email,
             password: req.body.password,
             image: req.body.image,
-            top: req.body.top,
-            content_updated: true
+            toponto: req.body.toponto,
+            topsvd: req.body.topsvd
         }).then((user) => res.status(201).send(user))
             .catch((error) => res.status(400).send(error));
     },
@@ -96,12 +95,11 @@ module.exports = {
                 }
                 return user.update({
                     names: req.body.names || user.names,
-                    yelp_id: req.body.yelp_id || user.yelp_id,
                     email: req.body.email || user.email,
                     password: req.body.password || user.password,
                     image: req.body.image || user.image,
-                    top: req.body.top || user.top,
-                    content_updated: req.body.content_updated
+                    toponto: req.body.toponto || user.toponto,
+                    topsvd: req.body.topsvd || user.topsvd
                 })
                     .then((user) => res.status(200).send(user))
                     .catch((error) => res.status(400).send(error));
