@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
+import Footer from '../components/Footer';
 
 export default class SignUp extends Component {
 
@@ -89,7 +90,7 @@ export default class SignUp extends Component {
           <div className="container">
             <div className="row center">
               <div className="col s1">
-                <img className="responsive-img" src="./assets/colibri.png" />
+              <i className="yellow-text text-darken-2 medium material-icons">camera</i>
               </div>
               <div className="col s2 offset-s9">
                 <a className="grey-text text-darken-2" onClick={() => this.linkTo("")} href="#!">Home</a>
@@ -100,7 +101,7 @@ export default class SignUp extends Component {
           <div className="row center">
             <div className="col s12">
               <br></br>
-              <h3 className="grey-text text-darken-3">Sign Up to Kweh!</h3>
+              <h3 className="grey-text text-darken-3">Sign Up to Shutter!</h3>
               <h6 className="grey-text text-darken-3">or <a onClick={() => this.linkTo("login")} href="#">log in</a></h6>
               <br></br>
               <br></br>
@@ -172,7 +173,7 @@ export default class SignUp extends Component {
                 <br></br>
                 <br></br>
 
-                <center><a onClick={this.handleSubmit} className="waves-effect waves-light btn grey lighten-5 grey-text text-darken-3">Sign Up</a></center>
+                <center><a onClick={this.handleSubmit} className="waves-effect waves-light btn yellow darken-2 white-text">Sign Up</a></center>
 
               </div>
 
@@ -186,42 +187,7 @@ export default class SignUp extends Component {
 
         <div className="divider"></div>
 
-        <footer className="page-footer grey lighten-5">
-          <div className="container">
-            <div className="row center">
-              <div className="col s2 offset-s1">
-                <h6 className="grey-text text-darken-1">Features</h6>
-              </div>
-              <div className="col s2">
-                <h6 className="grey-text text-darken-1">About</h6>
-              </div>
-              <div className="col s2">
-                <h6 className="grey-text text-darken-1">Testimonials</h6>
-              </div>
-              <div className="col s2">
-                <h6 className="grey-text text-darken-1">Contact</h6>
-              </div>
-              <div className="col s2">
-                <h6 className="grey-text text-darken-1">Download</h6>
-              </div>
-            </div>
-
-            <div className="divider"></div>
-
-            <br></br>
-            <div className="row center">
-              <h6 className="grey-text text-darken-1">1717 Harrison St, San Francisco, CA 94103, USA</h6>
-              <h6 className="grey-text text-darken-1">© 2019 Kweh Company Ltda.</h6>
-            </div>
-          </div>
-          <div className="footer-copyright">
-            <div className="container">
-              <a className="grey-text text-lighten-1 right" onClick={() => this.linkTo('')} href="#">Home</a>
-            </div>
-          </div>
-        </footer>
-
-
+        <Footer/>
 
       </div >
     )

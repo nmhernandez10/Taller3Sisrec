@@ -66,7 +66,7 @@ export default class LogIn extends Component {
           <div className="container">
             <div className="row center">
               <div className="col s1">
-                <img className="responsive-img" src="./assets/colibri.png" />
+                <i className="yellow-text text-darken-2 medium material-icons">camera</i>
               </div>
               <div className="col s2 offset-s9">
                 <a className="grey-text text-darken-2" onClick={() => this.linkTo("")} href="#!">Home</a>
@@ -77,7 +77,7 @@ export default class LogIn extends Component {
           <div className="row center">
             <div className="col s12">
               <br></br>
-              <h3 className="grey-text text-darken-3">Log In to Kweh!</h3>
+              <h3 className="grey-text text-darken-3">Log In to Shutter!</h3>
               <h6 className="grey-text text-darken-3">or <a onClick={() => this.linkTo("signup")} href="#">sign your account up</a></h6>
               <br></br>
               <br></br>
@@ -134,7 +134,7 @@ export default class LogIn extends Component {
                 <br></br>
 
                 <center>
-                  <a onClick={this.handleSubmit} className="waves-effect waves-light btn grey lighten-5 grey-text text-darken-3">Log In</a>
+                  <a onClick={this.handleSubmit} className="waves-effect waves-light btn yellow darken-2 white-text">Log In</a>
                 </center>
                 {/**<a onClick = {this.toSignUp} href="#">Did you forget your password?</a>*/}
 

@@ -1,7 +1,6 @@
 const Movie = require('../models').Movie;
 const Review = require('../models').Review;
 const MovieTag = require('../models').MovieTag;
-const Photo = require('../models').Photo;
 const Tag = require('../models').Tag;
 const User = require('../models').User;
 const db = require('../models/index');
@@ -24,7 +23,7 @@ module.exports = {
                 }
             }
             return Movie.findAll({
-                include: [{ model: MovieTag, include: [Tag] }, Photo],
+                include: [{ model: MovieTag, include: [Tag] }],
                 where: { $or: orList }
             }).then(movies => res.status(200).send(movies))
                 .catch((error) => res.status(400).send(error));
@@ -32,7 +31,8 @@ module.exports = {
     },
     getByName(req, res) {
         return Movie.findAll({
-            include: [{ model: MovieTag, include: [Tag] }, Photo],
+            order: [['year', 'DESC'],],
+            include: [{ model: MovieTag, include: [Tag] }],
             where: { name: { $iLike: '%' + req.params.name + '%' } },
             limit: 12
         }).then((movies) => res.status(200).send(movies))
@@ -40,7 +40,7 @@ module.exports = {
     },
     getByYelpId(req, res) {
         return Movie.findAll({
-            include: [Review, MovieTag, Photo],
+            include: [Review, MovieTag],
             where: { yelp_id: req.params.yelp_id }
         }).then((movies) => res.status(200).send(movies))
             .catch((error) => res.status(400).send(error));

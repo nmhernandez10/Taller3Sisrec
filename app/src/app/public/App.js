@@ -5,7 +5,7 @@ export default class App extends Component {
 
     state = {
         input: '',
-        businesses: [],
+        movies: [],
         searching: true,
         top: true,
         link: null
@@ -19,7 +19,7 @@ export default class App extends Component {
 
     stopSearching = () => {
         this.setState({
-            businesses: [],
+            movies: [],
             input: '',
             searching: true
         }, this.getGeneralTop());
@@ -29,7 +29,7 @@ export default class App extends Component {
         event.preventDefault();
         if (this.state.input.replace(/\s/g, '').length == 0) {
             this.setState({
-                businesses: [],
+                movies: [],
                 searching: false,
                 top: true
             });
@@ -38,9 +38,9 @@ export default class App extends Component {
             this.setState({
                 searching: true
             }, () => {
-                fetch('/api/business/byname/' + this.state.input).then(res => res.json()).then(data => {
+                fetch('/api/movie/byname/' + this.state.input).then(res => res.json()).then(data => {
                     this.setState({
-                        businesses: data,
+                        movies: data,
                         searching: false,
                         top: false
                     });
@@ -57,9 +57,9 @@ export default class App extends Component {
     }
 
     getGeneralTop = () => {
-        fetch('/api/user/409286/top').then(res => res.json()).then(data => {
+        fetch('/api/user/1/top').then(res => res.json()).then(data => {
             this.setState({
-                businesses: data,
+                movies: data,
                 top: true,
                 searching: false
             });
@@ -68,7 +68,7 @@ export default class App extends Component {
 
     componentDidMount() {
         document.dispatchEvent(new Event('component'));
-        this.getGeneralTop();
+        //this.getGeneralTop();
     }
 
     componentDidUpdate() {
@@ -83,33 +83,22 @@ export default class App extends Component {
             return <Redirect to={'/' + this.state.link} />;
         }
 
-        const businessesCards = this.state.businesses.map((business, i) => {
-
-            const images = business.Photos.map((photo, i) => {
-                return (
-                    <li key={photo.id}>
-                        <img className="responsive-img" src={photo.route} />
-                    </li>
-                );
-            });
+        const moviesCards = this.state.movies.map((movie, i) => {
 
             return (
-                <div key={business.id} className="col s6 l4 xl3">
-                    <div className="card medium hoverable">
+                <div key={movie.id} className="col s6 l4 xl3">
+                    <div className="card small hoverable">
                         <div className="card-image">
-                            <div className="slider">
-                                <ul class="slides">
-                                    {images}
-                                </ul>
-                            </div>
+                            <img className="responsive-img" src={movie.photo} />
                         </div>
                         <div className="card-content">
-                            <span className="card-title activator grey-text text-darken-4">{business.name}<i className="material-icons right">more_vert</i></span>
+                            <span className="card-title activator grey-text text-darken-4 truncate">{movie.name}<i className="material-icons right">more_vert</i></span>
                         </div>
                         <div className="card-reveal">
                             <span className="card-title grey-text text-darken-4">Attributes<i className="material-icons right">close</i></span>
-                            <p>{business.BusinessTags.map((tag, i) => {
-                                if (i == business.BusinessTags.length - 1) {
+                            <p><b>Title: </b>{movie.name}</p>
+                            <p>{movie.MovieTags.map((tag, i) => {
+                                if (i == movie.MovieTags.length - 1) {
                                     return (
                                         tag.Tag.name
                                     );
@@ -122,7 +111,7 @@ export default class App extends Component {
                             })}</p>
                         </div>
                         <div className="card-action">
-                            {business.city + " - " + business.address}
+                            {movie.year}
                         </div>
                     </div>
                 </div>
@@ -134,7 +123,7 @@ export default class App extends Component {
 
                 <div className="main">
 
-                    <div className="section grey lighten-5">
+                    <div className="section grey darken-4">
 
                         <br></br>
 
@@ -142,32 +131,32 @@ export default class App extends Component {
 
                             <div className="row center">
                                 <div className="col s1">
-                                    <img className="responsive-img" src="./assets/colibri.png" />
+                                    <i className="yellow-text text-darken-2 medium material-icons">camera</i>
                                 </div>
                                 <div className="col s2 offset-s7">
-                                    <a className="grey-text text-darken-2" onClick={() => this.linkTo("login")} href="#!">Log In</a>
+                                    <a className="white-text" onClick={() => this.linkTo("login")} href="#!">Log In</a>
                                 </div>
                                 <div className="col s2">
-                                    <a className="grey-text text-darken-2" onClick={() => this.linkTo("signup")} href="#!">Sign Up</a>
+                                    <a className="white-text" onClick={() => this.linkTo("signup")} href="#!">Sign Up</a>
                                 </div>
                             </div>
 
                             <div className="row center">
                                 <div className="col s12">
-                                    <h2 className="grey-text text-darken-1">Welcome to Kweh!</h2>
+                                    <h2 className="white-text">Welcome to Shutter!</h2>
                                 </div>
                             </div>
 
                             <div className="row center">
                                 <div className="col s12">
-                                    <h6 className="grey-text text-darken-1">Kwhere you can find the best businesses near you</h6>
+                                    <h6 className="white-text">Where you can find the best movies for you</h6>
                                 </div>
                             </div>
 
                             <div className="container row center">
                                 <div className="col s12">
                                     <nav>
-                                        <div className="nav-wrapper grey lighten-1">
+                                        <div className="nav-wrapper grey darken-3">
                                             <form onSubmit={this.search}>
                                                 <div className="input-field">
                                                     <input id="input" type="search" onChange={this.handleInput} value={this.state.input} required />
@@ -182,16 +171,15 @@ export default class App extends Component {
 
                     </div>
 
-
-                    <div className="divider"></div>
+                    <div className="grey ligthen-2 divider"></div>
 
                     <div className="section">
                         <div className="container row center">
                             <div className="col s12">
                                 {
                                     this.state.top ?
-                                        <h4 className="grey-text text-darken-3">Best businesses in Kweh</h4>
-                                        : <h4 className="grey-text text-darken-3">Search businesses result</h4>
+                                        <h4 className="grey-text text-darken-3">Best movies in Shutter</h4>
+                                        : <h4 className="grey-text text-darken-3">Search movies result</h4>
                                 }
                             </div>
                         </div>
@@ -212,15 +200,15 @@ export default class App extends Component {
                                             </div>
                                         </div>
                                     </div>
-                                    : this.state.businesses.length > 0 ?
-                                        businessesCards
-                                        : <h6>We did not find businesses related to your search</h6>
+                                    : this.state.movies.length > 0 ?
+                                        moviesCards
+                                        : <h6>We did not find movies related to your search</h6>
                             }
                         </div>
                     </div>
 
                 </div>
-                <div className="divider"></div>
+                <div className="grey ligthen-2 divider"></div>
                 <Footer />
             </div >
         )
