@@ -48,10 +48,10 @@ class DatabasePopulator:
     def load_tags(self):
         all_tags = {}
         with open(self.genome_tags_file, 'r', encoding='utf-8') as genome_tags:
-            index = 1021
+            index = 1
             genome_tags = genome_tags.readlines()
             header = 0
-            for line in genome_tags[1020:]:
+            for line in genome_tags[1:]:
                 if header:
                     # if index == 300:
                     #     break
