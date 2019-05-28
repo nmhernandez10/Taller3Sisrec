@@ -100,7 +100,7 @@
                 },
                 "stars": {
                     "field": "stars",
-                    "seqType": "Sequelize.INTEGER"
+                    "seqType": "Sequelize.REAL"
                 },
                 "date": {
                     "field": "date",
