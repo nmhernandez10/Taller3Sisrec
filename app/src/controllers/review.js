@@ -46,7 +46,9 @@ module.exports = {
                     MovieId: req.body.MovieId,
                     svd_updated: false
                 }).then((review) => res.status(201).send(review))
-                    .catch((error) => res.status(400).send(error));
+                    .catch((error) => {
+                            console.log(error);
+                        return res.status(400).send(error)});
             }
         }).catch((error) => res.status(400).send(error));
     },
