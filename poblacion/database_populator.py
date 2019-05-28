@@ -276,7 +276,7 @@ class DatabasePopulator:
             movies = movies.readlines()
             misfits = 0
             index = 0
-            for line in movies[1:100]:
+            for line in movies[1:]:
                 movie = line.split(',')
                 movie_id = movie[0]
                 if movie_id in movies_directors:
@@ -398,7 +398,7 @@ class DatabasePopulator:
             'https://www.instyle.es/medio/2015/05/20/instyle_ursula_03_0300_788x1182.jpg')
 
         user_count = 283228
-        for user in range(1, 100):#user_count + 1):
+        for user in range(1, user_count + 1):
             names = user
             email = '{}@gmail.com'.format(user)
             password = user
@@ -466,7 +466,11 @@ class DatabasePopulator:
 
 if __name__ == '__main__':
     databasePopulator = DatabasePopulator()
+    print('CREATING TAGS -------------------------------------------------')
     databasePopulator.load_tags()
+    print('CREATING MOVIES AND MOVIETAGS -------------------------------------------------')
     databasePopulator.load_movies()
+    print('CREATING USERS -------------------------------------------------')
     databasePopulator.load_users()
+    print('CREATING REVIEWS -------------------------------------------------')
     databasePopulator.load_reviews()
