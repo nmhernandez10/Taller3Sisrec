@@ -450,7 +450,7 @@ class DatabasePopulator:
                                             'year': year,
                                             'director': director,
                                             'actors': actors})
-                    print(r)
+
 
                     if r.status_code >= 300:
                         print("Error in {}".format(movie_id))
@@ -516,7 +516,6 @@ class DatabasePopulator:
                                     'image': image,
                                     'toponto': '',
                                     'topsvd': ''})
-            print(r.json())
 
             if r.status_code >= 300:
                 print("Error in {}".format(user))
@@ -572,7 +571,7 @@ class DatabasePopulator:
 
 if __name__ == '__main__':
     databasePopulator = DatabasePopulator()
-    databasePopulator.load_tags()
-    databasePopulator.load_movies()
+    # databasePopulator.load_tags()
+    # databasePopulator.load_movies()
     databasePopulator.load_users()
     databasePopulator.load_reviews()
