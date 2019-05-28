@@ -572,7 +572,7 @@ class DatabasePopulator:
 
 if __name__ == '__main__':
     databasePopulator = DatabasePopulator()
-    databasePopulator.load_tags()
-    # databasePopulator.load_movies()
+    # databasePopulator.load_tags()
+    databasePopulator.load_movies()
     # databasePopulator.load_users()
     # databasePopulator.load_reviews()
