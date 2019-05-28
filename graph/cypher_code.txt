@@ -1,0 +1,64 @@
+// DELETE ALL NODES AND RELATIONS
+
+MATCH (n)
+DETACH DELETE n
+
+// LOAD DIRECTORES AND ACTORES
+
+LOAD CSV WITH HEADERS FROM 'file:///directores.csv' AS line
+CREATE (:Director { name: line.Director_name })
+LOAD CSV WITH HEADERS FROM 'file:///actores.csv' AS line
+CREATE (:Actor { name: line.Actor })
+
+// INDEX CREATION
+
+CREATE INDEX ON :Actor(name)
+CREATE INDEX ON :Director(name)
+
+// LOAD CSV
+
+LOAD CSV WITH HEADERS FROM 'file:///salida_nodos.csv' AS line FIELDTERMINATOR ';'
+CREATE (m:Movie { id: line.movieId})
+WITH m AS m, line AS line
+MATCH (n1)
+WHERE n1:Actor AND n1.name = line.Actor_1
+MATCH (n2)
+WHERE n2:Actor AND n2.name = line.Actor_2
+MATCH (n3)
+WHERE n3:Actor AND n3.name = line.Actor_3
+MATCH (n4)
+WHERE n4:Actor AND n4.name = line.Actor_4
+MATCH (n5)
+WHERE n5:Actor AND n5.name = line.Actor_5
+MATCH (d)
+WHERE d:Director AND d.name = line.Director_name
+CREATE (m)-[:MyDirector]->(d),
+	(d)-[:MyMovie]->(m),
+	(n1)-[:MyMovie]->(m),
+	(m)-[:MyActor]->(n1),
+	(n2)-[:MyMovie]->(m),
+	(m)-[:MyActor]->(n2),
+	(n3)-[:MyMovie]->(m),
+	(m)-[:MyActor]->(n3),
+	(n4)-[:MyMovie]->(m),
+	(m)-[:MyActor]->(n4),
+	(n5)-[:MyMovie]->(m),
+	(m)-[:MyActor]->(n5)
+
+// QUERYS
+
+MATCH p=(m)-[r:MyActor]->() WHERE m:Movie AND m.id = "1" RETURN p
+MATCH p=(a)-[r:MyMovie]->() WHERE a:Actor AND a.name = "Tom Hanks" RETURN p
+
+// RECOMMENDATIONS
+
+// by actores
+MATCH p=(m)-[ra:MyActor]->()-[rm:MyMovie]->(r) WHERE m:Movie AND m.id = "1" RETURN r
+
+// by director
+MATCH p=(m)-[ra:MyDirector]->()-[rm:MyMovie]->(r) WHERE m:Movie AND m.id = "1" RETURN r
+
+// by both of them
+MATCH p=(m)-[]->()-[:MyMovie]->(r) WHERE m:Movie AND m.id = "1" RETURN r
+
+MATCH p=(m)-[e]->(c)-[:MyMovie]->(r) WHERE m:Movie RETURN m, type(e), c, r
