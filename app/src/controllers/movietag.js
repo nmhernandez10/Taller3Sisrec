@@ -27,7 +27,10 @@ module.exports = {
             TagId: req.body.TagId,
             MovieId: req.body.MovieId
         }).then((movietag) => res.status(201).send(movietag))
-            .catch((error) => res.status(400).send(error));
+            .catch((error) => {
+                console.log(error);
+                return res.status(400).send(error)
+            });
     },
     put(req, res) {
         return MovieTag.findById(req.params.id)
