@@ -57,7 +57,7 @@ export default class App extends Component {
     }
 
     getGeneralTop = () => {
-        fetch('/api/user/1/top').then(res => res.json()).then(data => {
+        fetch('/api/user/283230/toponto').then(res => res.json()).then(data => {
             this.setState({
                 movies: data,
                 top: true,
@@ -68,7 +68,7 @@ export default class App extends Component {
 
     componentDidMount() {
         document.dispatchEvent(new Event('component'));
-        //this.getGeneralTop();
+        this.getGeneralTop();
     }
 
     componentDidUpdate() {

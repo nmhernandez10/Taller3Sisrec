@@ -35,7 +35,7 @@ module.exports = {
             .catch((error) => res.status(400).send(error));
     },
     get(req, res) {
-        return User.findById(req.params.id, { include: [{ model: Review, include: [{ model: Movie, include: [Photo, { model: MovieTag, include: [Tag] }] }] }, { model: UserTag, include: [Tag] }] })
+        return User.findById(req.params.id, { include: [{ model: Review, include: [{ model: Movie, include: [{ model: MovieTag, include: [Tag] }] }] }, { model: UserTag, include: [Tag] }] })
             .then((user) => {
                 if (!user) {
                     return res.status(404).send({

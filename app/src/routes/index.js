@@ -32,10 +32,13 @@ router.delete('/api/movie/:id', movieController.delete);
 router.get('/api/movie/byname/:name', movieController.getByName);
 router.get('/api/movie/byyelpid/:yelp_id', movieController.getByYelpId);
 router.get('/api/user/:id/top', movieController.getTop);
+router.get('/api/user/:id/toponto', movieController.getTopOnto);
+router.get('/api/user/:id/topsvd', movieController.getTopSVD);
 //We put 'put' because we needed to send a body request for searching movies by attributes
 router.put('/api/movie/byattributes/name', movieController.getByNameAndExactlyByAttributes);
 router.put('/api/movie/byattributes/and', movieController.getExactlyByAttributes);
 router.put('/api/movie/byattributes/or', movieController.getByAttributes);
+router.get('/api/movie/formodel/foronto/:id', movieController.getForOnto);
 
 
 // Review
@@ -46,6 +49,7 @@ router.put('/api/review/:id', reviewController.putById);
 router.put('/api/review/', reviewController.put);
 router.delete('/api/review/:id', reviewController.delete);
 router.get('/api/review/formodel/forsvd/', reviewController.getAllForSVD);
+router.get('/api/review/formodel/forsvdonline/', reviewController.getForOnline);
 
 // Tag
 router.get('/api/tag/', tagController.getAll);

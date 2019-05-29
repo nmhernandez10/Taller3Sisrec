@@ -2,7 +2,7 @@ import React from 'react';
 
 const footer = () => {
     return (<footer className="page-footer grey darken-4">
-        <div className="container">
+        <div className="container">-
 
             <br></br>
             <div className="row center">
@@ -21,7 +21,7 @@ const footer = () => {
             <br></br>
             <div className="row center">
                 <h6 className="white-text">1717 Harrison St, San Francisco, CA 94103, USA</h6>
-                <h6 className="white-text">© 2019 Kweh Company Ltda.</h6>
+                <h6 className="white-text">© 2019 Shutter Company Ltda.</h6>
             </div>
         </div>
         <div className="footer-copyright">

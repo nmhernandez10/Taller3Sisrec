@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import dateFormat from 'dateformat';
-import { Draggable, Droppable } from 'react-drag-and-drop'
+import { Draggable, Droppable } from 'react-drag-and-drop';
+import Footer from '../components/Footer';
 
 export default class Profile extends Component {
 
@@ -310,7 +311,7 @@ export default class Profile extends Component {
 
                 <div className="main">
 
-                    <div className="section grey lighten-5">
+                    <div className="section grey darken-4">
 
                         <br></br>
 
@@ -318,25 +319,25 @@ export default class Profile extends Component {
 
                             <div className="row center">
                                 <div className="col s1">
-                                    <img className="responsive-img" src="./assets/colibri.png" />
+                                    <i className="yellow-text text-darken-2 medium material-icons">camera</i>
                                 </div>
                                 <div className="col s2 offset-s7">
-                                    <a className="grey-text text-darken-2" onClick={() => this.linkTo("session")} href="#!">Home</a>
+                                    <a className="white-text" onClick={() => this.linkTo("session")} href="#!">Home</a>
                                 </div>
                                 <div className="col s2">
-                                    <a className="grey-text text-darken-2 modal-trigger" href="#confirmModal">Log Out</a>
+                                    <a className="white-text modal-trigger" href="#confirmModal">Log Out</a>
                                 </div>
                             </div>
 
                             <div className="row center">
                                 <div className="col s12">
-                                    <h2 className="grey-text text-darken-1">This is your profile</h2>
+                                    <h2 className="white-text">This is your profile</h2>
                                 </div>
                             </div>
 
                             <div className="row center">
                                 <div className="col s12">
-                                    <h6 className="grey-text text-darken-1">All the information you give to us is important</h6>
+                                    <h6 className="white-text">All the information you give to us is important</h6>
                                 </div>
                             </div>
 
@@ -377,8 +378,8 @@ export default class Profile extends Component {
                                 </div>
 
                                 <div className="col s7">
-                                    <h4>What kind of businesses do you like?</h4>
-                                    <h6>Search attributes that you would like businesses had. We will match this information to show you recommendations related to these tags. Once you looked for something, you can add it to any of both sides depending on your stand about it.</h6>
+                                    <h4>What kind of movies do you like?</h4>
+                                    <h6>Search attributes that you would like movies had. We will match this information to show you recommendations related to these tags. Once you looked for something, you can add it to any of both sides depending on your stand about it.</h6>
                                     <br></br>
                                     <div className="row center">
                                         <div className="col s4">
@@ -528,51 +529,7 @@ export default class Profile extends Component {
 
                 <div className="divider"></div>
 
-                <footer className="page-footer grey lighten-5">
-                    <div className="container">
-                        <div className="row center">
-                            <div className="col s2 offset-s1">
-                                <h6 className="grey-text text-darken-1">Features</h6>
-                            </div>
-                            <div className="col s2">
-                                <h6 className="grey-text text-darken-1">About</h6>
-                            </div>
-                            <div className="col s2">
-                                <h6 className="grey-text text-darken-1">Testimonials</h6>
-                            </div>
-                            <div className="col s2">
-                                <h6 className="grey-text text-darken-1">Contact</h6>
-                            </div>
-                            <div className="col s2">
-                                <h6 className="grey-text text-darken-1">Download</h6>
-                            </div>
-                        </div>
-
-                        <div className="divider"></div>
-
-                        <br></br>
-                        <div className="row center">
-                            <h6 className="grey-text text-darken-1">Made by</h6>
-                            <div className="col s2 offset-s4">
-                                <a className="grey-text text-darken-1" href="mailto:r.garcia11@uniandes.edu.co"><b>Rogelio García</b></a>
-                            </div>
-                            <div className="col s2">
-                                <a className="grey-text text-darken-1" href="mailto:nm.hernandez10@uniandes.edu.co"><b>Nicolás Hernández</b></a>
-                            </div>
-                        </div>
-
-                        <br></br>
-                        <div className="row center">
-                            <h6 className="grey-text text-darken-1">1717 Harrison St, San Francisco, CA 94103, USA</h6>
-                            <h6 className="grey-text text-darken-1">© 2019 Kweh Company Ltda.</h6>
-                        </div>
-                    </div>
-                    <div className="footer-copyright">
-                        <div className="container">
-                            <a className="grey-text text-lighten-1 right" href="#">Home</a>
-                        </div>
-                    </div>
-                </footer>
+                <Footer />
 
                 {/* Modals */}
 
