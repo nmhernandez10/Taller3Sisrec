@@ -112,8 +112,8 @@ class Ontological:
         userPredictions = np.array([])
 
         for movie in movie_list:
+            movie_tags = []
             if movie in self.movie_values:
-                movie_tags = []
                 for tag in self.all_tags:
                     if tag in self.movie_values[movie]:
                         movie_tags.append(self.movie_values[movie][tag])
