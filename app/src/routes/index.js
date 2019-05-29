@@ -49,7 +49,7 @@ router.put('/api/review/:id', reviewController.putById);
 router.put('/api/review/', reviewController.put);
 router.delete('/api/review/:id', reviewController.delete);
 router.get('/api/review/formodel/forsvd/', reviewController.getAllForSVD);
-router.get('/api/review/formodel/forsvdonline/', reviewController.getForOnline);
+router.get('/api/review/formodel/forsvdonline/:id', reviewController.getForOnline);
 
 // Tag
 router.get('/api/tag/', tagController.getAll);
