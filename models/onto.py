@@ -110,15 +110,19 @@ class Ontological:
 
         userTags = np.array(userTags, dtype=int)
         userPredictions = np.array([])
-
+        alreadySeen = 0
         for movie in movie_list:
-            movie_tags = []
             if movie in self.movie_values:
+                movie_tags = []
                 for tag in self.all_tags:
                     if tag in self.movie_values[movie]:
                         movie_tags.append(self.movie_values[movie][tag])
                     else:
                         movie_tags.append(0)
+            else:
+                movie_tags = []
+                for tag in self.all_tags:
+                    movie_tags.append(0)
             movie_tags = np.array(movie_tags, dtype=float)
             predict = np.dot(movie_tags, userTags)
             userPredictions = np.append(userPredictions, predict)
