@@ -527,8 +527,8 @@ export default class Session extends Component {
 
                     {
                         this.state.update ?
-                            <div className="section row container">
-                                <h5>We created new recommendations for you. Update page on browser to view them.</h5>
+                            <div className="section row container center">
+                                <h5><i>We created new recommendations for you. Update page on browser to view them.</i></h5>
                             </div>
                             : null
                     }
