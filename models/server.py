@@ -18,6 +18,7 @@ class SVD(Resource):
         print('Retrieving SVD for user '+uid)
         collaborative_model = Collaborative(uid)
         ranking = collaborative_model.predict(uid)
+        ranking = ",".join(map(str,ranking))
         r = requests.put(userUpdateDatabaseAddress.format(uid), json = {'topsvd': ranking})
         if(r.ok):
             print(ranking + ' for SVD user ' + uid)
@@ -30,6 +31,7 @@ class Graph(Resource):
     def get(self, uid):
         print('Retrieving ONTO for user '+uid)
         ranking = cb.predict_for_user(uid)
+        ranking = ",".join(map(str,ranking))
         r = requests.put(userUpdateDatabaseAddress.format(uid), json = {'toponto': ranking})
         if(r.ok):
             print(ranking + ' for ONTO user ' + uid)
