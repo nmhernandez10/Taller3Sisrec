@@ -201,7 +201,7 @@ export default class Session extends Component {
             reviews[data.MovieId] = data.stars;
             this.setState({
                 reviews: reviews,
-                svd_updated: false
+                update: false
             }, () => {
                 this.addToHistoricReviews(data);
                 this.updateOnlineModels();
