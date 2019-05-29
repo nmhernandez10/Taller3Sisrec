@@ -10,14 +10,14 @@ class Collaborative:
     reviewCSVRoute = '../../ml-latest/ratings.csv'
     dataset_columns = ['userId', 'movieId', 'rating']
 
-    databaseAddress = 'http://127.0.0.1:8080/api/{}'
-    userUpdateDatabaseAddress = 'http://127.0.0.1:8080/api/user/{}'
-    getUserNumber = 'http://127.0.0.1:8080/api/user/formodel/count'
-    getUserReviews = 'http://127.0.0.1:8080/api/user/formodel/forsvd/{}'
+    databaseAddress = 'http://172.24.41.67:8080/api/{}'
+    userUpdateDatabaseAddress = 'http://172.24.41.67:8080/api/user/{}'
+    getUserNumber = 'http://172.24.41.67:8080/api/user/formodel/count'
+    getUserReviews = 'http://172.24.41.67:8080/api/user/formodel/forsvd/{}'
 
     # getNewReviews = 'http://172.24.101.30:8080/api/review/formodel/forsvdonline/'
-    getNewReviews = 'http://127.0.0.1:8080/api/review/formodel/forsvdonline/{}'
-    updateReview = 'http://127.0.0.1:8080/api/review/{}'
+    getNewReviews = 'http://172.24.41.67:8080/api/review/formodel/forsvdonline/{}'
+    updateReview = 'http://172.24.41.67:8080/api/review/{}'
 
     def __init__(self, userId):
         self.update_trainset(userId)

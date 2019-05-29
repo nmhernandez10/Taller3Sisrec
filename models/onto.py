@@ -13,9 +13,9 @@ class Ontological:
     graph_json_route = '../graph/graph.json'
     # get_movie_ids = 'http://172.24.101.30:8080/api/movie/formodel/foronto/{}'
     # get_movie_ids = 'http://157.253.222.182:8080/api/movie/formodel/foronto/{}'
-    get_movie_ids = 'http://127.0.0.1:8080/api/movie/formodel/foronto/{}'
+    get_movie_ids = 'http://172.24.41.67:8080/api/movie/formodel/foronto/{}'
     # get_user_info = 'http://157.253.222.182:8080/api/user/{}'
-    get_user_info = 'http://127.0.0.1:8080/api/user/{}'
+    get_user_info = 'http://172.24.41.67:8080/api/user/{}'
 
     complete_ranking_file = '../../ml-latest/ranking.json'
     movie_indexes_file = '../../ml-latest/movies-indexes.csv'
@@ -146,5 +146,4 @@ class Ontological:
 
 if __name__ == "__main__":
     cb = Ontological()
-    # print(cb.predict("1"))
     cb.predict_for_user(1)
