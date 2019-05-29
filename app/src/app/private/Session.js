@@ -526,6 +526,8 @@ export default class Session extends Component {
 
                 </div>
 
+                <br></br>
+
                 <div className="divider"></div>
 
                 <Footer />

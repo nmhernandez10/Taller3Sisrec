@@ -210,6 +210,7 @@ export default class App extends Component {
                     </div>
 
                 </div>
+                <br></br>
                 <div className="grey ligthen-2 divider"></div>
                 <Footer />
             </div >
