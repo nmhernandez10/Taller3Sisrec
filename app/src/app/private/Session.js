@@ -210,9 +210,9 @@ export default class Session extends Component {
     }
 
     updateOnlineModels = () => {
-        fetch('http://172.24.101.30:8081/ontological/' + this.state.user.id, { mode: 'no-cors' }).then(res => res.json()).then(data => {
+        fetch('http://172.24.101.30:8081/ontological/' + this.state.user.id, { mode: 'no-cors' }).then(res => {
 
-            fetch('http://172.24.101.30:8081/collaborative/' + this.state.user.id, { mode: 'no-cors' }).then(res => res.json()).then(data => {
+            fetch('http://172.24.101.30:8081/collaborative/' + this.state.user.id, { mode: 'no-cors' }).then(res => {
                 this.setState({
                     update: true
                 });
