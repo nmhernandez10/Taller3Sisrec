@@ -44,6 +44,51 @@ export default class Session extends Component {
         });
     }
 
+    createCard = (movie) => {
+        return (
+            <div key={movie.id} className="col s6 l4 xl3">
+                <div className="card medium hoverable">
+                    <div className="card-image">
+                        <img className="responsive-img" src={movie.photo} />
+                    </div>
+                    <div className="card-content">
+                        <span className="card-title activator grey-text text-darken-4 truncate col s11">{movie.name}</span>
+                        <br></br>
+                        {movie.director + " - " + movie.year}
+                    </div>
+                    <div className="card-reveal">
+                        <span className="card-title grey-text text-darken-4">Attributes<i className="material-icons right">close</i></span>
+                        <p><b>Title: </b>{movie.name}</p>
+                        <p><b>Director: </b>{movie.director}</p>
+                        <p><b>Actors: </b>{movie.actors.replace(/,/g, ", ")}</p>
+                        <p><b>Tags</b></p>
+                        <p>{movie.MovieTags.map((tag, i) => {
+                            if (i == movie.MovieTags.length - 1) {
+                                return (
+                                    tag.Tag.name
+                                );
+                            }
+                            else {
+                                return (
+                                    tag.Tag.name + " | "
+                                );
+                            }
+                        })}</p>
+                    </div>
+                    <div className="card-action">
+                        <StarRatings
+                            rating={this.state.reviews[movie.id] || 0}
+                            starRatedColor='rgb(255, 206, 51)'
+                            changeRating={this.changeRating}
+                            numberOfStars={5}
+                            name={String(movie.id)}
+                            starDimension="25px"
+                        />
+                    </div>
+                </div>
+            </div>);
+    }
+
     initializeAutocomplete = () => {
         fetch('/api/tagnames').then(res => res.json()).then(data => {
             let tagnames = {};
@@ -190,15 +235,11 @@ export default class Session extends Component {
                 }, () => {
                     fetch('/api/user/' + this.state.user.id + '/topsvd').then(res => res.json()).then(datasvd => {
 
-                        if (datasvd.length == 0 && dataonto.length == 0) {
-                            this.getGeneralTop();
-                        }
-
                         this.setState({
                             recommendationsvd: datasvd,
                             searching: false,
                             recommended: true
-                        });
+                        }, () => this.getGeneralTop());
                     });
                 });
             });
@@ -209,6 +250,9 @@ export default class Session extends Component {
         fetch('/api/user/283230/toponto').then(res => res.json()).then(data => {
             this.setState({
                 generaltop: data
+            }, () => {
+                var elems = document.querySelectorAll('.slider');
+                M.Slider.init(elems, { indicators: false, interval: 5000, height: window.innerHeight * 0.6 });
             });
         });
     }
@@ -237,10 +281,6 @@ export default class Session extends Component {
         }
     }
 
-    componentDidUpdate() {
-        document.dispatchEvent(new Event('component'));
-    }
-
     render() {
 
         if (!this.state.logged) {
@@ -249,45 +289,21 @@ export default class Session extends Component {
             return <Redirect to={'/' + this.state.link} />;
         }
 
+        const generalTopSlides = this.state.generaltop.map((movie, i) => {
+            return (
+                <li key={movie.id}>
+                    <img src={movie.photo} />
+                    <div className="caption center-align">
+                        <h3>{movie.name}</h3>
+                        <h5 className="light grey-text text-lighten-3">{movie.director} - {movie.year}</h5>
+                    </div>
+                </li>
+            );
+        });
+
         const generaltopCards = this.state.generaltop.map((movie, i) => {
             return (
-                <div key={movie.id} className="col s6 l4 xl3">
-                    <div className="card small hoverable">
-                        <div className="card-image">
-                            <img className="responsive-img" src={movie.photo} />
-                        </div>
-                        <div className="card-content">
-                            <span className="card-title activator grey-text text-darken-4">{movie.name}<i className="material-icons right">more_vert</i></span>
-                            <br></br>
-                            {movie.city + " - " + movie.address}
-                        </div>
-                        <div className="card-reveal">
-                            <span className="card-title grey-text text-darken-4">Attributes<i className="material-icons right">close</i></span>
-                            <p>{movie.MovieTags.map((tag, i) => {
-                                if (i == movie.MovieTags.length - 1) {
-                                    return (
-                                        tag.Tag.name
-                                    );
-                                }
-                                else {
-                                    return (
-                                        tag.Tag.name + " | "
-                                    );
-                                }
-                            })}</p>
-                        </div>
-                        <div className="card-action">
-                            <StarRatings
-                                rating={this.state.reviews[movie.id] || 0}
-                                starRatedColor='rgb(255, 206, 51)'
-                                changeRating={this.changeRating}
-                                numberOfStars={5}
-                                name={String(movie.id)}
-                                starDimension="25px"
-                            />
-                        </div>
-                    </div>
-                </div>
+                this.createCard(movie)
             );
         });
 
@@ -296,129 +312,21 @@ export default class Session extends Component {
             const movie = review.Movie;
 
             return (
-                <div key={movie.id} className="col s6 l4 xl3">
-                    <div className="card small hoverable">
-                        <div className="card-image">
-                            <img className="responsive-img" src={movie.photo} />
-                        </div>
-                        <div className="card-content">
-                            <span className="card-title activator grey-text text-darken-4">{movie.name}<i className="material-icons right">more_vert</i></span>
-                            <br></br>
-                            {movie.city + " - " + movie.address}
-                        </div>
-                        <div className="card-reveal">
-                            <span className="card-title grey-text text-darken-4">Attributes<i className="material-icons right">close</i></span>
-                            <p>{movie.MovieTags.map((tag, i) => {
-                                if (i == movie.MovieTags.length - 1) {
-                                    return (
-                                        tag.Tag.name
-                                    );
-                                }
-                                else {
-                                    return (
-                                        tag.Tag.name + " | "
-                                    );
-                                }
-                            })}</p>
-                        </div>
-                        <div className="card-action">
-                            <StarRatings
-                                rating={this.state.reviews[movie.id] || 0}
-                                starRatedColor='rgb(255, 206, 51)'
-                                changeRating={this.changeRating}
-                                numberOfStars={5}
-                                name={String(movie.id)}
-                                starDimension="25px"
-                            />
-                        </div>
-                    </div>
-                </div>
+                this.createCard(movie)
             );
         });
 
         const moviesCards = this.state.results.map((movie, i) => {
 
             return (
-                <div key={movie.id} className="col s6 l4 xl3">
-                    <div className="card small hoverable">
-                        <div className="card-image">
-                            <img className="responsive-img" src={movie.photo} />
-                        </div>
-                        <div className="card-content">
-                            <span className="card-title activator grey-text text-darken-4">{movie.name}<i className="material-icons right">more_vert</i></span>
-                            <br></br>
-                            {movie.city + " - " + movie.address}
-                        </div>
-                        <div className="card-reveal">
-                            <span className="card-title grey-text text-darken-4">Attributes<i className="material-icons right">close</i></span>
-                            <p>{movie.MovieTags.map((tag, i) => {
-                                if (i == movie.MovieTags.length - 1) {
-                                    return (
-                                        tag.Tag.name
-                                    );
-                                }
-                                else {
-                                    return (
-                                        tag.Tag.name + " | "
-                                    );
-                                }
-                            })}</p>
-                        </div>
-                        <div className="card-action">
-                            <StarRatings
-                                rating={this.state.reviews[movie.id] || 0}
-                                starRatedColor='rgb(255, 206, 51)'
-                                changeRating={this.changeRating}
-                                numberOfStars={5}
-                                name={String(movie.id)}
-                                starDimension="25px"
-                            />
-                        </div>
-                    </div>
-                </div>
+                this.createCard(movie)
             );
         });
 
         const recommendationsSVDCards = this.state.recommendationsvd.map((movie, i) => {
 
             return (
-                <div key={movie.id} className="col s6 l4 xl3">
-                    <div className="card small hoverable">
-                        <div className="card-image">
-                            <img className="responsive-img" src={movie.photo} />
-                        </div>
-                        <div className="card-content">
-                            <span className="card-title activator grey-text text-darken-4">{movie.name}<i className="material-icons right">more_vert</i></span>
-                            <br></br>
-                            {movie.city + " - " + movie.address}
-                        </div>
-                        <div className="card-reveal">
-                            <span className="card-title grey-text text-darken-4">Attributes<i className="material-icons right">close</i></span>
-                            <p>{movie.MovieTags.map((tag, i) => {
-                                if (i == movie.MovieTags.length - 1) {
-                                    return (
-                                        tag.Tag.name
-                                    );
-                                }
-                                else {
-                                    return (
-                                        tag.Tag.name + " | "
-                                    );
-                                }
-                            })}</p>
-                        </div>
-                        <div className="card-action">
-                            <StarRatings
-                                rating={this.state.reviews[movie.id] || 0}
-                                starRatedColor='rgb(255, 206, 51)'
-                                changeRating={this.changeRating}
-                                numberOfStars={5}
-                                name={String(movie.id)}
-                                starDimension="25px"
-                            />
-                        </div>
-                    </div>
-                </div>
+                this.createCard(movie)
             );
 
         });
@@ -426,43 +334,7 @@ export default class Session extends Component {
         const recommendationsOntoCards = this.state.recommendationonto.map((movie, i) => {
 
             return (
-                <div key={movie.id} className="col s6 l4 xl3">
-                    <div className="card small hoverable">
-                        <div className="card-image">
-                            <img className="responsive-img" src={movie.photo} />
-                        </div>
-                        <div className="card-content">
-                            <span className="card-title activator grey-text text-darken-4">{movie.name}<i className="material-icons right">more_vert</i></span>
-                            <br></br>
-                            {movie.city + " - " + movie.address}
-                        </div>
-                        <div className="card-reveal">
-                            <span className="card-title grey-text text-darken-4">Attributes<i className="material-icons right">close</i></span>
-                            <p>{movie.MovieTags.map((tag, i) => {
-                                if (i == movie.MovieTags.length - 1) {
-                                    return (
-                                        tag.Tag.name
-                                    );
-                                }
-                                else {
-                                    return (
-                                        tag.Tag.name + " | "
-                                    );
-                                }
-                            })}</p>
-                        </div>
-                        <div className="card-action">
-                            <StarRatings
-                                rating={this.state.reviews[movie.id] || 0}
-                                starRatedColor='rgb(255, 206, 51)'
-                                changeRating={this.changeRating}
-                                numberOfStars={5}
-                                name={String(movie.id)}
-                                starDimension="25px"
-                            />
-                        </div>
-                    </div>
-                </div>
+                this.createCard(movie)
             );
 
         });
@@ -506,12 +378,13 @@ export default class Session extends Component {
                             <div className="section container">
                                 <div className="row">
                                     <div className="container input-field col s12">
-                                        <input placeholder="By name" id="input" type="text" onChange={this.handleInput} value={this.state.input} />
+                                        <input className="white-text" placeholder="By name" id="input" type="text" onChange={this.handleInput} value={this.state.input} />
                                     </div>
                                 </div>
                                 <div className="row">
                                     <div className="container input-field col s12">
-                                        <div className="chips chips-autocomplete">
+                                        <div className="chips">
+                                            <input className="white-text" />
                                         </div>
                                     </div>
                                 </div>
@@ -527,6 +400,17 @@ export default class Session extends Component {
                     <div className="divider"></div>
 
                     <div className="section row container">
+
+                        <br></br>
+                        <h4 className="center">Best ranked movies</h4>
+                        <br></br>
+
+                        <div className="slider">
+                            <ul className="slides">
+                                {generalTopSlides}
+                            </ul>
+                        </div>
+
                         {
                             this.state.searching ?
                                 <div className="col s12 center">
@@ -618,10 +502,6 @@ export default class Session extends Component {
                                         <div className="center">
                                             <h4>Our recommendations for you</h4>
                                             <h6>We need more information about you to build customized recommendations</h6>
-                                            <br></br>
-                                            <h5>These recommendations are a general set of best ranked movies</h5>
-                                            <br></br>
-                                            {generaltopCards}
                                         </div>
                                         : null
                         }

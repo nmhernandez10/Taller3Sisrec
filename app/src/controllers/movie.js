@@ -139,7 +139,7 @@ module.exports = {
                         ;
                 }
             }
-            let query = 'SELECT "id" FROM (SELECT "MovieId",COUNT(*) AS "Count" FROM "MovieTags" WHERE ' + orText + ' GROUP BY "MovieId") AS "CountTable", "Moviees" WHERE "Count" = ' + tags.length + ' AND "CountTable"."MovieId" = "Moviees"."id" LIMIT 12';
+            let query = 'SELECT "id" FROM (SELECT "MovieId",COUNT(*) AS "Count" FROM "MovieTags" WHERE ' + orText + ' GROUP BY "MovieId") AS "CountTable", "Movies" WHERE "Count" = ' + tags.length + ' AND "CountTable"."MovieId" = "Movies"."id" LIMIT 12';
             return db.sequelize.query(query, { type: db.sequelize.QueryTypes.SELECT }).then(movieids => {
                 orList = [];
                 for (let movieid of movieids) {
@@ -181,7 +181,7 @@ module.exports = {
                 }
             }
             let ilike = "'%" + req.body.name + "%'";
-            let query = 'SELECT "id" FROM (SELECT "MovieId",COUNT(*) AS "Count" FROM "MovieTags" WHERE ' + orText + ' GROUP BY "MovieId") AS "CountTable", "Moviees" WHERE "Count" = ' + tags.length + ' AND "CountTable"."MovieId" = "Moviees"."id" AND "Moviees"."name" ILIKE ' + ilike + ' LIMIT 12';
+            let query = 'SELECT "id" FROM (SELECT "MovieId",COUNT(*) AS "Count" FROM "MovieTags" WHERE ' + orText + ' GROUP BY "MovieId") AS "CountTable", "Movies" WHERE "Count" = ' + tags.length + ' AND "CountTable"."MovieId" = "Movies"."id" AND "Movies"."name" ILIKE ' + ilike + ' LIMIT 12';
             return db.sequelize.query(query, { type: db.sequelize.QueryTypes.SELECT }).then(movieids => {
                 orList = [];
                 for (let movieid of movieids) {

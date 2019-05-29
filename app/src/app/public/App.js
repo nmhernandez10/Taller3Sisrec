@@ -176,6 +176,8 @@ export default class App extends Component {
                     <div className="section">
                         <div className="container row center">
                             <div className="col s12">
+
+                                <br></br>
                                 {
                                     this.state.top ?
                                         <h4 className="grey-text text-darken-3">Best movies in Shutter</h4>
