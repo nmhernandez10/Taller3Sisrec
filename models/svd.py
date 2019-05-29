@@ -1,11 +1,9 @@
 import datetime
-import math
 import time
 
 import pandas as pd
 import requests
 import surprise
-from scipy.special import ndtri
 
 
 
@@ -17,63 +15,26 @@ class Collaborative:
     userUpdateDatabaseAddress = 'http://127.0.0.1:8080/api/user/{}'
     getUserNumber = 'http://127.0.0.1:8080/api/user/formodel/count'
     getUserReviews = 'http://127.0.0.1:8080/api/user/formodel/forsvd/{}'
-    rankingUser = 409286
-    getNewReviews = 'http://127.0.0.1:8080/api/review/formodel/forsvd/'
+
+    # getNewReviews = 'http://172.24.101.30:8080/api/review/formodel/forsvdonline/'
+    getNewReviews = 'http://157.253.222.182:8080/api/review/formodel/forsvdonline/'
     updateReview = 'http://127.0.0.1:8080/api/review/{}'
 
     def __init__(self):
-        self.build_trainset()
+        self.update_trainset()
         self.create_model()
 
-    def build_trainset(self):
-        print('Building trainset for collaborative filtering')
-        dfcsv = pd.read_csv(self.reviewCSVRoute, header=None,
-                            names=self.dataset_columns)
-        reader = surprise.Reader(rating_scale=(1.0, 5.0))
-        data = surprise.Dataset.load_from_df(dfcsv, reader)
-        full_trainset_temp = data.build_full_trainset()
-        self.full_trainset = full_trainset_temp
-
     def update_trainset(self):
-        df = pd.DataFrame()
-        
-        self.userTops = {}
-        r = requests.get(self.getNewReviews)
-        userData = r.json()
-        if not userData:
-            return False
-        print('Updating trainset for collaborative filtering')
-####################
-        dfcsv = pd.read_csv(self.reviewCSVRoute, header=None,
-                            names=self.dataset_columns)
-####################
-        newReviews = []
-        self.reviewsToUpdate = []
-        for r in userData:
-            self.reviewsToUpdate.append(r['id'])
-            dftemp = dfcsv.loc[dfcsv['movieId'] == r['MovieId']]
-            dftemp = dftemp.loc[dfcsv['userId'] == r['UserId']]
+        r = requests.get(self.getNewReviews)  # Cambiar el endpoint pls
+        data = r.json()
 
-            dfcsv.loc[(dfcsv['movieId'] == r['MovieId']) & (
-                dfcsv.UserId == r['UserId']), 'rating'] = r['stars']
-            user = r['User']
-            self.userTops[r['UserId']] = user['top']
-            if dftemp.empty:
-                newReviews.append(
-                    {'UserId': r['UserId'],
-                     'BusinessId': r['BusinessId'],
-                     'stars': r['stars']})
-
-        df = pd.DataFrame(newReviews)
-        df = df[self.dataset_columns]
-####################
-        dfcsv = dfcsv.append(df, ignore_index=True)
+        df = pd.DataFrame(data)
+        df = df[['UserId', 'MovieId', 'stars']]
 
         reader = surprise.Reader(rating_scale=(1.0, 5.0))
-        data = surprise.Dataset.load_from_df(dfcsv, reader)
+        data = surprise.Dataset.load_from_df(df, reader)
         full_trainset_temp = data.build_full_trainset()
         self.full_trainset = full_trainset_temp
-        return True
 
     def create_model(self):
         print('Building SVD model')
@@ -133,107 +94,14 @@ class Collaborative:
         return ['{}'.format(top) for top in predicted_items[:top_n]]
 
     def predict_all(self):
-        for r in self.reviewsToUpdate:
-            rr = requests.put(
-                self.updateReview.format(r),
-                json={'svd_updated': True})
-
-            if rr.status_code >= 300:
-                print("Error updating svd_updated for review {}".format(r))
-
-        for u in self.userTops:
-            try:
-                oldTop = self.userTops[u]
-                top4 = self.predict(u)
-                newTop = self.new_top(oldTop, top4)
-                print('id: {}, newTop: {}'.format(u, newTop))
-                r = requests.put(
-                    self.userUpdateDatabaseAddress.format(u),
-                    json={'top': newTop})
-
-                if r.status_code >= 300:
-                    print(
-                        "Error updating collaborative predictions for user {}".format(u))
-            except:
-                print('User has no ratings')
-
-    def new_top(self, oldTop, top4):
-        newTop = ''
-
-        if not oldTop:
-            for top in top4:
-                newTop += ',{}'.format(top)
-        else:
-            oldTopList = oldTop.split(',')
-            if len(oldTopList) > 6:
-                for top in oldTopList[:4]:
-                    newTop += ',{}'.format(top) if newTop else '{}'.format(top)
-                for top in top4:
-                    newTop += ',{}'.format(top)
-            else:
-                if '{}'.format(oldTop)[0] == ',':
-                    for top in top4:
-                        newTop += ',{}'.format(
-                            top)
-                else:
-                    for top in oldTopList:
-                        newTop += ',{}'.format(top) if newTop else '{}'.format(top)
-                    for top in top4:
-                        newTop += ',{}'.format(
-                            top)
-        return newTop
-
-    def ranking(self, top_n=8):
-        items = self.full_trainset.ir
-        items_ranking = {}
-        for item in items:
-            item_raw_id = self.full_trainset.to_raw_iid(item)
-            n = 0
-            average = 0
-            pos = 0
-            for _, rating in items[item]:
-                n += 1
-                average += rating
-            average = average / n
-            pos = len(
-                [rating for user, rating in items[item] if rating > average])
-            confidence = 0.95
-            items_ranking[item_raw_id] = self.ci_lower_bound(
-                pos, n, confidence)
-        ranking = sorted(items_ranking, key=items_ranking.get, reverse=True)
-
-        return ['{}'.format(r) for r in ranking[:top_n]]
-
-    def ci_lower_bound(self, pos, n, confidence):
-        if n == 0:
-            return 0
-        z = ndtri(1-(1-confidence)/2)
-        phat = 1.0*pos/n
-        return (phat + z*z/(2*n) - z * math.sqrt((phat*(1-phat)+z*z/(4*n))/n))/(1+z*z/n)
-
-    def put_ranking(self):
-        ranking = self.ranking()
-        newTop = ''
-        for top in ranking:
-            newTop += ',{}'.format(top) if newTop else '{}'.format(top)
-        print('Ranking: {}'.format(newTop))
-        r = requests.put(
-            self.userUpdateDatabaseAddress.format(self.rankingUser),
-            json={'top': newTop})
-
-        if r.status_code >= 300:
-            print("Error updating ranking")
+        # for user in users predict(user)
+        pass
 
     def update(self):
-        self.put_ranking()
-        while True:
-            print('Scanning for changes in reviews')
-            if self.update_trainset():
-                self.create_model()
-                self.predict_all()
-                print('Getting the general ranking')
-                self.put_ranking()
-            time.sleep(30)
+        # self.put_ranking()
+        self.update()
+        self.create_model()
+        self.predict_all()
 
 
 if __name__ == '__main__':
