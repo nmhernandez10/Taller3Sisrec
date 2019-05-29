@@ -15,28 +15,28 @@ cb = Ontological()
 
 class SVD(Resource):
     def get(self, uid):
-        print('Retrieving SVD for user '+uid)
+        print('Retrieving SVD for user {}'.format(uid))
         collaborative_model = Collaborative(uid)
         ranking = collaborative_model.predict(uid)
         ranking = ",".join(map(str,ranking))
         r = requests.put(userUpdateDatabaseAddress.format(uid), json = {'topsvd': ranking})
         if(r.ok):
-            print(ranking + ' for SVD user ' + uid)
+            print('{} for SVD user {}'.format(ranking, uid))
         else:
-            print('Error for SVD user '+ uid)
+            print('Error for SVD user {}'.format(uid))
         resp = Response(json.dumps(ranking), status=200, content_type='application/json')
         return resp
 
 class Graph(Resource):
     def get(self, uid):
-        print('Retrieving ONTO for user '+uid)
+        print('Retrieving ONTO for user {}'.format(uid))
         ranking = cb.predict_for_user(uid)
         ranking = ",".join(map(str,ranking))
         r = requests.put(userUpdateDatabaseAddress.format(uid), json = {'toponto': ranking})
         if(r.ok):
-            print(ranking + ' for ONTO user ' + uid)
+            print('{} for ONTO user {}'.format(ranking, uid))
         else:
-            print('Error for ONTO user '+ uid)
+            print('Error for ONTO user {}'.format(uid))
         resp = Response(json.dumps(ranking), status=200, content_type='application/json')
         return resp
 
