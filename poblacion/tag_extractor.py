@@ -5,6 +5,7 @@ class TagExtractor:
     genome_scores_file = '../../ml-latest/genome-scores.csv'
     genome_tags_file = '../../ml-latest/genome-tags.csv'
     movies_tags_file = '../../ml-latest/movies-attributes.json'
+    movies_tags_values_file = '../../ml-latest/movies-attributes-values.json'
     movies_file = '../../ml-latest/movies.csv'
     all_tags_file = '../../ml-latest/all-tags.csv'
 
@@ -32,6 +33,7 @@ class TagExtractor:
 
     def define_tags(self):
         all_movies_tags = {}
+        all_movies_tags_values = {}
         with open(self.movies_tags_file, 'w', encoding='utf-8') as movie_tags:
             movie_tags.write('')
 
@@ -60,14 +62,20 @@ class TagExtractor:
                 try:
                     if float(score) >= 0.65:
                         all_movies_tags[movie_id].append(tag_id)
+                        all_movies_tags_values[movie_id][tag_id] = float(score)
                 except:
                     all_movies_tags[movie_id] = []
+                    all_movies_tags_values[movie_id] = {}
                     if float(score) >= 0.65:
                         all_movies_tags[movie_id].append(tag_id)
+                        all_movies_tags_values[movie_id][tag_id] = float(score)
                 try:
                     all_movies_tags[movie_id]
+                    all_movies_tags_values[movie_id]
                 except:
                     all_movies_tags[movie_id] = []
+                    all_movies_tags_values[movie_id] = {}
+
                 index += 1
                 header = 1
 
@@ -78,6 +86,7 @@ class TagExtractor:
         print(average_tags/number_of_movies)
 
         movies_genres = {}
+        movies_genres_values = {}
         with open(self.movies_file, 'r', encoding='utf-8') as movies:
             index = 0
             header = 0
@@ -93,10 +102,14 @@ class TagExtractor:
                 movie_genres = movie_info[-1][:-1].split('|')
                 movies_genres[movie_id] = [self.genre_ids[name]
                                             for name in movie_genres]
+                movies_genres_values[movie_id] = {}
+                for name in movie_genres:
+                    movies_genres_values[movie_id][self.genre_ids[name]] = 1
 
                 try:
                     for movie_tag in all_movies_tags[movie_id]:
                         movies_genres[movie_id].append(movie_tag)
+                        movies_genres_values[movie_id][movie_tag] = all_movies_tags_values[movie_id][movie_tag]
                 except:
                     print('The movie with id {} is not present in the list of movies'.format(movie_id))
 
@@ -109,6 +122,9 @@ class TagExtractor:
         # print(movies_genres)
         with open(self.movies_tags_file, 'w', encoding='utf-8') as movies_tags:
             movies_tags.write(json.dumps(movies_genres))
+
+        with open(self.movies_tags_values_file, 'w', encoding='utf-8') as movies_tags_values:
+            movies_tags_values.write(json.dumps(movies_genres_values))
 
     def append_tag_ids(self):
         with open(self.genome_tags_file, 'r', encoding='utf-8') as genome_tags:

@@ -1,3 +1,4 @@
+import json
 import math
 
 import requests
@@ -10,13 +11,14 @@ class Ranking:
     user_update_database_address = 'http://127.0.0.1:8080/api/user/{}'
     # user_update_database_address = 'http://157.253.222.182:8080/api/user/{}'
     ratings_file = '../../ml-latest/ratings.csv'
-
+    complete_ranking_file = '../../ml-latest/ranking.json'
+    movie_indexes_file = '../../ml-latest/movies-indexes.csv'
     confidence = 0.95
 
     def __init__(self):
         print('Creating index for movie ids and database ids')
         self.movie_database_id = {}
-        with open('../../ml-latest/movies-indexes.csv', 'r', encoding='utf-8') as movies_indexes:
+        with open(self.movie_indexes_file, 'r', encoding='utf-8') as movies_indexes:
             for line in movies_indexes:
                 movie_index = line.split(',')
                 movie_id = movie_index[0]
@@ -43,14 +45,14 @@ class Ranking:
                         self.movie_totals[movie_id] = (new_n, new_t)
                 else:
                     header = 1
-        
+
         print('Creating average for every movie')
         for movie in self.movie_totals:
             n = self.movie_totals[movie][0]
             t = self.movie_totals[movie][1]
             a = t / n
             self.movie_totals[movie] = (n, a)
-    
+
         print('Creating pos for every movie')
         self.movie_pos = {}
         with open(self.ratings_file, 'r', encoding='utf-8') as ratings:
@@ -83,13 +85,18 @@ class Ranking:
         for movie in self.movie_parameters:
             n = self.movie_parameters[movie][0]
             pos = self.movie_parameters[movie][1]
-            items_ranking[movie] = self.ci_lower_bound(
-                pos, n, self.confidence)
+            if movie in self.movie_database_id:
+                items_ranking[self.movie_database_id[movie]] = self.ci_lower_bound(
+                    pos, n, self.confidence)
 
-            index += 1
-            if index % 1000 == 0:
-                print('Building ranking, {:.2f}% done.'.format(index / 47555 * 100))
+                index += 1
+                if index % 1000 == 0:
+                    print('Building ranking, {:.2f}% done.'.format(
+                        index / 59000 * 100))
         ranking = sorted(items_ranking, key=items_ranking.get, reverse=True)
+
+        with open(self.complete_ranking_file, 'w', encoding='utf-8') as complete_ranking:
+            complete_ranking.write(json.dumps(items_ranking))
 
         return ['{}'.format(r) for r in ranking[:top_n]]
 
@@ -112,6 +119,7 @@ class Ranking:
 
         if r.status_code >= 300:
             print("Error updating ranking")
+
 
 if __name__ == '__main__':
     ranking = Ranking()
