@@ -6,7 +6,6 @@ import requests
 import surprise
 
 
-
 class Collaborative:
     reviewCSVRoute = '../../ml-latest/ratings.csv'
     dataset_columns = ['userId', 'movieId', 'rating']
@@ -17,15 +16,16 @@ class Collaborative:
     getUserReviews = 'http://127.0.0.1:8080/api/user/formodel/forsvd/{}'
 
     # getNewReviews = 'http://172.24.101.30:8080/api/review/formodel/forsvdonline/'
-    getNewReviews = 'http://157.253.222.182:8080/api/review/formodel/forsvdonline/'
+    getNewReviews = 'http://127.0.0.1:8080/api/review/formodel/forsvdonline/{}'
     updateReview = 'http://127.0.0.1:8080/api/review/{}'
 
-    def __init__(self):
-        self.update_trainset()
+    def __init__(self, userId):
+        self.update_trainset(userId)
         self.create_model()
 
-    def update_trainset(self):
-        r = requests.get(self.getNewReviews)  # Cambiar el endpoint pls
+    def update_trainset(self, userId):
+        r = requests.get(self.getNewReviews.format(
+            userId))  # Cambiar el endpoint pls
         data = r.json()
 
         df = pd.DataFrame(data)
@@ -43,7 +43,7 @@ class Collaborative:
         algo_temp.fit(self.full_trainset)
         self.algorithm = algo_temp
 
-    def get_top_n(self, predictions, n=5):
+    def get_top_n(self, predictions, n=8):
         top_n = {}
         for uid, iid, _, est, _ in predictions:
             if uid not in top_n:
@@ -57,9 +57,9 @@ class Collaborative:
 
         return top_n
 
-    def predict(self, user_id, top_n=4):
+    def predict(self, user_id, top_n=8):
         """
-        Returns all predicitions for the given user
+        Returns all predictions for the given user
         """
 
         user_ratings = self.full_trainset.ur[self.full_trainset.to_inner_uid(
@@ -105,5 +105,8 @@ class Collaborative:
 
 
 if __name__ == '__main__':
-    svd = Collaborative()
-    svd.update()
+    millis = int(round(time.time() * 1000))
+    svd = Collaborative(2)
+    print(svd.predict(2))
+    millis = int(round(time.time() * 1000)) - millis
+    print(millis)

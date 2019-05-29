@@ -52,7 +52,7 @@ export default class Session extends Component {
                         <img className="responsive-img" src={movie.photo} />
                     </div>
                     <div className="card-content">
-                        <span className="card-title activator grey-text text-darken-4 truncate col s11">{movie.name}</span>
+                        <span className="card-title activator grey-text text-darken-4 truncate">{movie.name}</span>
                         <br></br>
                         {movie.director + " - " + movie.year}
                     </div>
@@ -401,16 +401,6 @@ export default class Session extends Component {
 
                     <div className="section row container">
 
-                        <br></br>
-                        <h4 className="center">Best ranked movies</h4>
-                        <br></br>
-
-                        <div className="slider">
-                            <ul className="slides">
-                                {generalTopSlides}
-                            </ul>
-                        </div>
-
                         {
                             this.state.searching ?
                                 <div className="col s12 center">
@@ -470,6 +460,18 @@ export default class Session extends Component {
                                         </div>
                                         : null
                         }
+
+                    </div>
+
+                    <div className="section row container">
+                        <h4 className="center">Best ranked movies</h4>
+                        <br></br>
+
+                        <div className="slider">
+                            <ul className="slides">
+                                {generalTopSlides}
+                            </ul>
+                        </div>
                     </div>
 
                     <div className="section row container">

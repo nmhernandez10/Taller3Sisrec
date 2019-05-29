@@ -11,8 +11,11 @@ module.exports = {
             .catch((error) => res.status(400).send(error));
     },
     getForOnline(req, res) {
-        let query = 'SELECT "UserId","MovieId","stars" FROM "Reviews" ORDER BY "Reviews"."date" DESC LIMIT 10000';
-        return db.sequelize.query(query, { type: db.sequelize.QueryTypes.SELECT }).then(reviews => res.status(200).send(reviews)).catch(error => res.status(400).send(error));
+        let query = 'SELECT "UserId","MovieId","stars" FROM "Reviews" ORDER BY "Reviews"."date" DESC LIMIT 100000';
+        let queryUser = 'SELECT "UserId","MovieId","stars" FROM "Reviews" WHERE "Reviews"."UserId"=' + req.params.id;
+        return db.sequelize.query(query, { type: db.sequelize.QueryTypes.SELECT }).then(reviews => {
+            return db.sequelize.query(queryUser, { type: db.sequelize.QueryTypes.SELECT }).then(reviewsUser => res.status(200).send(reviews.concat(reviewsUser))).catch(error => res.status(400).send(error));
+        }).catch(error => res.status(400).send(error));
     },
     getAllForSVD(req, res) {
         return Review.findAll({ include: [User], where: { svd_updated: false } })
