@@ -19,7 +19,8 @@ export default class Session extends Component {
         searching: true,
         searched: false,
         reviews: {},
-        generaltop: []
+        generaltop: [],
+        update: false
     }
 
     linkTo = (path) => {
@@ -201,7 +202,21 @@ export default class Session extends Component {
             this.setState({
                 reviews: reviews,
                 svd_updated: false
-            }, () => this.addToHistoricReviews(data));
+            }, () => {
+                this.addToHistoricReviews(data);
+                this.updateOnlineModels();
+            });
+        });
+    }
+
+    updateOnlineModels = () => {
+        fetch('http://172.24.101.30:8081/ontological/' + this.state.user.id).then(res => res.json()).then(data => {
+
+            fetch('http://172.24.101.30:8081/collaborative/' + this.state.user.id).then(res => res.json()).then(data => {
+                this.setState({
+                    update: true
+                });
+            });
         });
     }
 
@@ -508,6 +523,16 @@ export default class Session extends Component {
                                         : null
                         }
                     </div>
+
+
+                    {
+                        this.state.update ?
+                            <div className="section row container">
+                                <h5>We created new recommendations for you. Update page on browser to view them.</h5>
+                            </div>
+                            : null
+                    }
+
 
                     <div className="section row container">
                         {
