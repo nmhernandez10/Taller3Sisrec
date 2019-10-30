@@ -16,7 +16,7 @@
     "react-paginate": "^6.3.0",
     "react-router-dom": "^4.3.1",
     "react-star-ratings": "^2.3.0",
-    "sequelize": "^4.42.0",
+    "sequelize": "^5.15.1",
     "sequelize-auto-migrations": "^1.0.3",
     "sequelize-cli": "^5.4.0"
   },
