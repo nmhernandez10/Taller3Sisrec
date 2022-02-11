@@ -4,7 +4,7 @@
   "description": "Taller2sisrecWebpage",
   "main": "index.js",
   "dependencies": {
-    "ajv": "^6.8.1",
+    "ajv": "^6.12.3",
     "busboy": "^0.3.0",
     "copy-to-clipboard": "^3.0.8",
     "dateformat": "^3.0.3",
